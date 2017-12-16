@@ -1,8 +1,6 @@
 package com.example.demo.model;
 
-/**
- * Created by KAI on 12/14/17.
- */
+
 public class StaffObject {
     private String id;
     private String firstName;

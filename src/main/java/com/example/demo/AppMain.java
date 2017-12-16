@@ -1,22 +1,40 @@
 package com.example.demo;
 
+import com.example.demo.creation.DOMCreateDocument;
+import com.example.demo.creation.StAXCreateDocument;
+import com.example.demo.model.Employees;
 import com.example.demo.parsers.DomParsersService;
 import com.example.demo.parsers.SAXParsersService;
-import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.transform.TransformerException;
 import java.io.IOException;
 
-/**
- * Created by KAI on 12/14/17.
- */
 public class AppMain {
 
     private static DomParsersService domParsersService = new DomParsersService();
     private static SAXParsersService saxParsersService = new SAXParsersService();
+    private static StAXCreateDocument stAXCreateDocument = new StAXCreateDocument();
+    private static DOMCreateDocument dOMCreateDocument = new DOMCreateDocument();
     private static String filePath = "/Users/KAI/Desktop/xml-example-project/src/main/resources/inputData.xml";
-    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
-        domParsersService.parseXmlToObject(filePath);
-        saxParsersService.eventParserToObject(filePath);
+
+    public static void main(String[] args) {
+        try {
+//        domParsersService.parseXmlToObject(filePath);
+//        saxParsersService.eventParserToObject(filePath);
+            String filePath = stAXCreateDocument.createEmployeeXMLDocument(new Employees());
+            String filePath2 = dOMCreateDocument.createEmployeeXMLDocument(new Employees());
+            System.out.println(filePath2);
+
+        } catch (IOException e) {
+            System.out.println("[ERROR] IOException : " + e.getMessage());
+        } catch (XMLStreamException e) {
+            System.out.println("[ERROR] XMLStreamException: " + e.getMessage());
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
     }
 }
