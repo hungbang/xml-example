@@ -7,6 +7,8 @@ import com.example.demo.model.Employees;
 import com.example.demo.parsers.DomParsersService;
 import com.example.demo.parsers.SAXParsersService;
 import com.example.demo.unmashaller.UnmarshallerConverter;
+import com.example.demo.xmlmappingdatabase.XMLMappingUtil;
+import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -14,6 +16,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class AppMain {
 
@@ -35,6 +38,8 @@ public class AppMain {
 
             mashallerConvert.convertObjectToXMLFile();
             System.out.println(unmarshallerConverter.convertXMLFileToObject());
+            XMLMappingUtil.insertData("/Users/KAI/Desktop/xml-example-project/src/main/resources/inputData.xml");
+
         } catch (IOException e) {
             System.out.println("[ERROR] IOException : " + e.getMessage());
         } catch (XMLStreamException e) {
@@ -44,6 +49,12 @@ public class AppMain {
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (JAXBException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
